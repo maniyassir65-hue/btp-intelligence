@@ -27,6 +27,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   useEffect(() => {
+    // Sécurité : Timeout pour éviter le blocage infini
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn("⚠️ Auth: Timeout de 5s atteint, forçage du chargement...");
+        setLoading(false);
+      }
+    }, 5000);
+
     // Check active sessions and sets the user
     const getInitialSession = async () => {
       console.log("🔍 Auth: Démarrage de la vérification de session...");
@@ -62,6 +70,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       } finally {
         console.log("🏁 Auth: Fin de l'initialisation, retrait du loader.");
         setLoading(false);
+        clearTimeout(timeout);
       }
     };
 
@@ -69,6 +78,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Listen for changes on auth state
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("🔄 Auth: Changement d'état détecté:", event);
       if (session) {
         setUser(session.user);
         const { data: profile } = await supabase
@@ -87,6 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => {
       subscription.unsubscribe();
+      clearTimeout(timeout);
     };
   }, []);
 

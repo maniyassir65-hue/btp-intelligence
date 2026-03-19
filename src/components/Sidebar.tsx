@@ -27,7 +27,7 @@ const navItems = [
     { name: 'Ouvriers', href: '/workers', icon: Users2 },
     { name: 'Matériaux', href: '/materials', icon: Hammer },
     { name: 'Sous-Traitance', href: '/subcontractors', icon: Wrench },
-    { name: 'Comptabilité', href: '/finance', icon: Wallet, adminOnly: true },
+    { name: 'Comptabilité', href: '/finance', icon: Wallet },
 ];
 
 export function Sidebar() {
@@ -105,7 +105,7 @@ export function Sidebar() {
 
                 {/* Navigation Section */}
                 <nav className="flex-1 px-3 space-y-1 mt-2">
-                    {navItems.filter(item => !item.adminOnly || role === 'admin').map((item) => {
+                    {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
                             <Link key={item.name} href={item.href}>

@@ -217,7 +217,6 @@ export default function ProjectDetailsClient({
                 <div className="bg-white p-5 rounded-2xl border border-stone-100 shadow-sm relative group">
                     <div className="flex items-center justify-between">
                         <p className="text-[9px] uppercase font-bold text-stone-400 tracking-widest">Budget Initial</p>
-                        {role === 'admin' && <button onClick={() => { setAvenantAmount(project.global_budget.toString()); setIsAvenantModalOpen(true); }} className="p-1 px-2 text-[9px] font-black underline uppercase text-[#c97423] hover:bg-amber-50 rounded"><Settings size={12} /></button>}
                     </div>
                     <p className="text-xl font-black text-stone-900 mt-1">{project.global_budget.toLocaleString()} DH</p>
                 </div>
@@ -321,10 +320,10 @@ export default function ProjectDetailsClient({
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsBuildingModalOpen(false)} className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
                         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="bg-white w-full max-w-sm rounded-[2rem] shadow-xl relative overflow-hidden">
-                            <div className="bg-black p-6 flex justify-between text-white uppercase text-xs font-black"><h2>Nouveau Bâtiment</h2><button onClick={() => setIsBuildingModalOpen(false)}><X size={18} /></button></div>
+                            <div className="bg-stone-900 p-6 flex justify-between text-white uppercase text-xs font-black"><h2>Nouveau Bâtiment</h2><button onClick={() => setIsBuildingModalOpen(false)}><X size={18} /></button></div>
                             <form onSubmit={handleAddBuilding} className="p-6 space-y-4">
                                 <input value={buildingName} onChange={e => setBuildingName(e.target.value)} required placeholder="Nom du bloc" className="w-full p-3 bg-stone-50 border rounded-xl font-bold text-sm" />
-                                <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Créer'}</button>
+                                <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-[13px] shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Créer'}</button>
                             </form>
                         </motion.div>
                     </div>
@@ -339,7 +338,7 @@ export default function ProjectDetailsClient({
                              <div className="bg-stone-900 p-6 flex justify-between text-white uppercase text-xs font-black"><h2>Nouvel Étage</h2><button onClick={() => setIsLevelModalOpen(false)}><X size={18} /></button></div>
                              <form onSubmit={handleAddLevel} className="p-6 space-y-4">
                                  <input value={levelName} onChange={e => setLevelName(e.target.value)} required placeholder="ex: RDC" className="w-full p-3 bg-stone-50 border rounded-xl font-bold text-sm" />
-                                 <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Enregistrer'}</button>
+                                 <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-[13px] shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Enregistrer'}</button>
                              </form>
                         </motion.div>
                     </div>
@@ -362,7 +361,7 @@ export default function ProjectDetailsClient({
                                      <option value="Payée partiellement">Acompte (Payé partiellement)</option>
                                      <option value="Réglée">Réglée</option>
                                  </select>
-                                 <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase text-xs tracking-widest shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Enregistrer'}</button>
+                                 <button disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase text-[13px] tracking-widest shadow-md">{isSubmitting ? <Loader2 className="animate-spin w-4 h-4 mx-auto" /> : 'Enregistrer'}</button>
                              </form>
                         </motion.div>
                     </div>

@@ -375,7 +375,7 @@ export default function SubcontractorsClient({
                                     <input value={subContact} onChange={e => setSubContact(e.target.value)} placeholder="Nom du contact" className="w-full p-3 bg-stone-50 border rounded-xl font-bold text-sm" />
                                     <input value={subPhone} onChange={e => setSubPhone(e.target.value)} placeholder="Téléphone" className="w-full p-3 bg-stone-50 border rounded-xl font-bold text-sm" />
                                 </div>
-                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-md">
+                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-[#c97423] text-white font-black rounded-xl uppercase tracking-widest text-[13px] shadow-md">
                                     {isSubmitting ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Enregistrer'}
                                 </button>
                             </form>
@@ -450,7 +450,7 @@ export default function SubcontractorsClient({
                                         </select>
                                     </div>
                                 </div>
-                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-stone-900 text-white font-black rounded-xl uppercase tracking-widest text-xs shadow-md">
+                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-stone-900 text-white font-black rounded-xl uppercase tracking-widest text-[13px] shadow-md">
                                     {isSubmitting ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Créer le Contrat'}
                                 </button>
                             </form>
@@ -488,7 +488,7 @@ export default function SubcontractorsClient({
                                     <input required type="number" value={payAmount} onChange={e => setPayAmount(e.target.value)} placeholder="0" className="w-full p-4 bg-stone-50 border rounded-xl font-black text-lg text-center" />
                                 </div>
                                 <input value={payNote} onChange={e => setPayNote(e.target.value)} placeholder="Note (optionnel)" className="w-full p-3 bg-stone-50 border rounded-xl font-bold text-sm" />
-                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-emerald-600 text-white font-black rounded-xl uppercase text-xs tracking-widest shadow-md hover:bg-emerald-700 transition-all">
+                                <button type="submit" disabled={isSubmitting} className="w-full py-4 bg-emerald-600 text-white font-black rounded-xl uppercase text-[13px] tracking-widest shadow-md hover:bg-emerald-700 transition-all">
                                     {isSubmitting ? <Loader2 size={16} className="animate-spin mx-auto" /> : 'Confirmer le Versement'}
                                 </button>
                             </form>

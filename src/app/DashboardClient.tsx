@@ -17,7 +17,10 @@ import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { exportToExcel, exportToPDF } from '@/lib/exportUtils';
 
-export default function DashboardClient({ initialStats, initialProjects, role }: any) {
+import { useAuth } from '@/components/AuthProvider';
+
+export default function DashboardClient({ initialStats, initialProjects }: any) {
+  const { role } = useAuth();
   const router = useRouter();
   const [projectsList] = useState<any[]>(initialProjects);
 

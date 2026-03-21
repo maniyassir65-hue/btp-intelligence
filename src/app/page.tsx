@@ -75,7 +75,7 @@ export default async function DashboardPage() {
       { name: 'Alertes Budget', value: alertesCount, change: alertesCount > 0 ? 'DÉPASSEMENT !' : 'TOUT VA BIEN', icon: 'alert', color: alertesCount > 0 ? 'text-red-600' : 'text-emerald-600', bg: alertesCount > 0 ? 'bg-red-100/50' : 'bg-emerald-100/50' },
     ];
 
-    return <DashboardClient initialStats={stats} initialProjects={formattedProjects} role="admin" />;
+    return <DashboardClient initialStats={stats} initialProjects={formattedProjects} />;
     
   } catch (err: any) {
     console.error('Crash serveur Dashboard:', err.message);

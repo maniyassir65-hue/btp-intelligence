@@ -146,7 +146,8 @@ export function Sidebar() {
                         {isOpen && <span>Réglages</span>}
                     </button>
                     <button 
-                        onClick={() => signOut()}
+                        type="button"
+                        onClick={() => { console.log('Déconnexion cliquée'); signOut(); }}
                         className="flex items-center gap-3.5 w-full px-3 py-2.5 text-red-500 font-bold text-[13px] hover:bg-red-50 rounded-xl transition-all"
                     >
                         <LogOut size={18} />

@@ -104,9 +104,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Protect routes
   useEffect(() => {
     if (!loading) {
-      if (!user && pathname !== '/login') {
+      if (!user && pathname !== '/login' && pathname !== '/signup') {
         router.push('/login');
-      } else if (user && pathname === '/login') {
+      } else if (user && (pathname === '/login' || pathname === '/signup')) {
         router.push('/');
       }
     }

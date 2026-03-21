@@ -316,5 +316,29 @@ export async function deleteSubcontractAction(contractId: string) {
     return { success: true };
 }
 
+// User Management Actions
+export async function getProfilesAction() {
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) throw new Error(error.message);
+    return data;
+}
+
+export async function updateProfileRoleAction(userId: string, role: string) {
+    const { error } = await supabase
+        .from('profiles')
+        .update({ role })
+        .eq('id', userId);
+
+    if (error) throw new Error(error.message);
+    
+    revalidatePath('/users');
+    revalidatePath('/'); // Refresh dashboard if roles change
+    return { success: true };
+}
+
 
 

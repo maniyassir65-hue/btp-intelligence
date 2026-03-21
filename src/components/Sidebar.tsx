@@ -17,7 +17,9 @@ import {
     ChevronRight,
     HardHat,
     Wallet,
-    Wrench
+    Wrench,
+    Shield,
+    User
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -28,6 +30,7 @@ const navItems = [
     { name: 'Matériaux', href: '/materials', icon: Hammer },
     { name: 'Sous-Traitance', href: '/subcontractors', icon: Wrench },
     { name: 'Comptabilité', href: '/finance', icon: Wallet },
+    { name: 'Utilisateurs', href: '/users', icon: Shield, adminOnly: true },
 ];
 
 export function Sidebar() {
@@ -104,8 +107,9 @@ export function Sidebar() {
                 </div>
 
                 {/* Navigation Section */}
-                <nav className="flex-1 px-3 space-y-1 mt-2">
-                    {navItems.map((item) => {
+                <nav className="flex-1 px-3 space-y-1 mt-2 overflow-y-auto max-h-[calc(100vh-160px)] scrollbar-hide">
+                    {navItems.map((item: any) => {
+                        if (item.adminOnly && role !== 'admin') return null;
                         const isActive = pathname === item.href;
                         return (
                             <Link key={item.name} href={item.href}>

@@ -77,7 +77,31 @@ export default function UsersClient({ initialProfiles = [] }: { initialProfiles?
         );
     }
 
+    const getRoleBadge = (role: string) => {
+        switch (role) {
+            case 'admin':
+                return (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-100 text-amber-900 rounded-full text-[10px] font-black uppercase tracking-wider border border-amber-200 shadow-sm">
+                        <ShieldAlert size={10} /> Administrateur
+                    </div>
+                );
+            case 'chef':
+                return (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-100 text-emerald-900 rounded-full text-[10px] font-black uppercase tracking-wider border border-emerald-200 shadow-sm">
+                        <ShieldCheck size={10} /> Chef de Chantier
+                    </div>
+                );
+            default:
+                return (
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 text-stone-500 rounded-full text-[10px] font-black uppercase tracking-wider border border-stone-200">
+                        <Clock size={10} /> En Attente
+                    </div>
+                );
+        }
+    };
+
     // Le reste du composant (div max-w-6xl...) reste identique
+
     return (
         <div className="max-w-6xl mx-auto space-y-8 pb-12">
             <header className="flex flex-col gap-2">

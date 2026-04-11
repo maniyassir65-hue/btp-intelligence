@@ -49,28 +49,7 @@ export default function DashboardClient({ initialStats, initialProjects }: any) 
     alert: AlertCircle
   };
 
-  if (!role || role === 'guest') {
-    return (
-      <div className="min-h-[60vh] flex items-center justify-center p-8">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="max-w-md w-full bg-white rounded-[2.5rem] p-12 text-center shadow-xl border border-stone-100"
-        >
-          <div className="w-20 h-20 bg-amber-50 text-amber-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-sm border border-amber-100/50">
-            <Clock size={40} />
-          </div>
-          <h2 className="text-2xl font-black text-stone-900 uppercase tracking-tight mb-4 leading-tight">Accès en Attente</h2>
-          <p className="text-stone-500 text-sm font-medium leading-relaxed mb-8">
-            Votre compte a été créé avec succès, mais un administrateur doit encore <strong>valider vos accès</strong> pour que vous puissiez voir les données.
-          </p>
-          <div className="pt-4 border-t border-stone-50">
-            <p className="text-[10px] font-black text-stone-400 uppercase tracking-[0.2em]">Contactez votre responsable</p>
-          </div>
-        </motion.div>
-      </div>
-    );
-  }
+  // Checking role is now handled globally in LayoutContent.tsx 
 
   return (
     <div className="space-y-8 pb-10">

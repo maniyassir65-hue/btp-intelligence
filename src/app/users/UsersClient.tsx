@@ -1,16 +1,37 @@
-'use client';
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, User, Loader2, Check, X, ShieldAlert, ShieldCheck, Clock } from 'lucide-react';
-import { updateProfileRoleAction } from '@/app/actions';
+import { Shield, User, Loader2, Check, X, ShieldAlert, ShieldCheck, Clock, Lock } from 'lucide-react';
+import { updateProfileRoleAction, getProfilesAction } from '@/app/actions';
 import { useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/components/AuthProvider';
 
-export default function UsersClient({ initialProfiles }: { initialProfiles: any[] }) {
+export default function UsersClient({ initialProfiles = [] }: { initialProfiles?: any[] }) {
+    const { role, user, loading: authLoading } = useAuth();
     const [profiles, setProfiles] = useState(initialProfiles);
+    const [fetching, setFetching] = useState(initialProfiles.length === 0);
     const [loadingId, setLoadingId] = useState<string | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const fetchProfiles = async () => {
+            if (role === 'admin') {
+                try {
+                    setFetching(true);
+                    const data = await getProfilesAction();
+                    setProfiles(data);
+                } catch (error) {
+                    console.error('Erreur chargement profils:', error);
+                } finally {
+                    setFetching(false);
+                }
+            }
+        };
+
+        if (!authLoading && role === 'admin' && initialProfiles.length === 0) {
+            fetchProfiles();
+        }
+    }, [role, authLoading, initialProfiles.length]);
 
     const handleUpdateRole = async (userId: string, newRole: string) => {
         setLoadingId(userId);
@@ -25,29 +46,36 @@ export default function UsersClient({ initialProfiles }: { initialProfiles: any[
         }
     };
 
-    const getRoleBadge = (role: string) => {
-        switch (role) {
-            case 'admin':
-                return (
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-amber-100 text-amber-900 rounded-full text-[10px] font-black uppercase tracking-wider border border-amber-200 shadow-sm">
-                        <ShieldAlert size={10} /> Administrateur
-                    </div>
-                );
-            case 'chef':
-                return (
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-100 text-emerald-900 rounded-full text-[10px] font-black uppercase tracking-wider border border-emerald-200 shadow-sm">
-                        <ShieldCheck size={10} /> Chef de Chantier
-                    </div>
-                );
-            default:
-                return (
-                    <div className="flex items-center gap-1.5 px-2.5 py-1 bg-stone-100 text-stone-500 rounded-full text-[10px] font-black uppercase tracking-wider border border-stone-200">
-                        <Clock size={10} /> En Attente
-                    </div>
-                );
-        }
-    };
+    if (authLoading || (fetching && role === 'admin')) {
+        return (
+            <div className="min-h-[60vh] flex flex-col items-center justify-center gap-4">
+                <Loader2 size={40} className="animate-spin text-[#c97423]" />
+                <p className="text-stone-400 text-sm font-bold uppercase tracking-widest">Chargement des accès...</p>
+            </div>
+        );
+    }
 
+    if (role !== 'admin') {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center p-8">
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="max-w-md w-full bg-white rounded-[2.5rem] p-12 text-center shadow-xl border border-stone-100"
+                >
+                    <div className="w-20 h-20 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-sm border border-red-100/50">
+                        <Lock size={40} />
+                    </div>
+                    <h2 className="text-2xl font-black text-stone-900 uppercase tracking-tight mb-4 leading-tight">Accès Refusé</h2>
+                    <p className="text-stone-500 text-sm font-medium leading-relaxed mb-8">
+                        Cette section est réservée aux <strong>administrateurs</strong>. Si vous pensez qu'il s'agit d'une erreur, contactez votre responsable.
+                    </p>
+                </motion.div>
+            </div>
+        );
+    }
+
+    // Le reste du composant (div max-w-6xl...) reste identique
     return (
         <div className="max-w-6xl mx-auto space-y-8 pb-12">
             <header className="flex flex-col gap-2">

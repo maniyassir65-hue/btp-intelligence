@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 
 export function LayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const { user, loading } = useAuth();
+  const { user, loading, role } = useAuth();
   
   const isLoginPage = pathname === '/login';
 
@@ -21,6 +21,8 @@ export function LayoutContent({ children }: { children: React.ReactNode }) {
             Vérification de la session...
         </p>
       </div>
+    );
+  }
   // Si on est sur une page publique, on n'affiche pas la sidebar
   const isPublicPage = pathname === '/login' || pathname === '/signup';
   if (isPublicPage) {
